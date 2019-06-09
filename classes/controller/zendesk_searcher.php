@@ -32,6 +32,17 @@
 			
 			if (($el === "--help") || ($el === "-h")) {
 				$this->help();
+			} elseif ($el === "") {
+				print "Welcome...";
+				while (TRUE) {
+					$prompt = "Type 'quit' ". PHP_EOL. "Select...". PHP_EOL;
+					print $prompt;
+					$line = readline();
+					switch ($line) {
+						case "quit":
+							return;
+					}
+				}
 			}
 		}
 		

@@ -10,5 +10,7 @@
 	spl_autoload_register(["AutoloadHandler", "autoloader"]);
 	set_exception_handler(["ExceptionHandler", "exceptionHandlerFunction"]);
 	
-
+	$feeder = new CliFeeder;
+	$zendeskSearcher = new ZendeskSearcher($feeder);
+	$zendeskSearcher->run();
 		

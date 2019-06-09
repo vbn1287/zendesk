@@ -1,6 +1,9 @@
 <?php
 	
 	/**
+	 * This is the abstraction of the feeder which is needed to make it possible in the future
+	 * to read commands not from the standard input but from a web service or any other source.
+	 *
 	 * Created by PhpStorm.
 	 * User: halmai
 	 * Date: 2019.06.09.

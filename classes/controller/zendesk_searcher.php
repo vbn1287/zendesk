@@ -30,9 +30,7 @@
 		public function run() {
 			$el = $this->feeder->getNext();
 			
-			if ($el === "search") {
-				//$this->search();
-			} else {
+			if (($el === "--help") || ($el === "-h")) {
 				$this->help();
 			}
 		}

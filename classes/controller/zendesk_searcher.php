@@ -45,7 +45,7 @@
 							return;
 
 						case "2":
-							print $this->listSearchableFields();
+							print $this->getListSearchableFields();
 							break;
 					}
 				}
@@ -59,7 +59,8 @@
 				"organizations" => ["_id", "url", "external_id", "details"],
 			];
 		}
-		protected function listSearchableFields() {
+
+		protected function getListSearchableFields() {
 			$fields = $this->getSearchableFields();
 			
 			$typeDescriptions = [];

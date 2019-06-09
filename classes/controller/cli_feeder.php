@@ -6,7 +6,7 @@
 	 * Date: 2019.06.09.
 	 * Time: 17:35
 	 */
-	class FeederFromCli extends ParamFeeder {
+	class CliFeeder extends ParamFeeder {
 		protected $items = NULL;
 		protected $cursor = 0;
 		

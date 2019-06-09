@@ -41,9 +41,37 @@
 					switch ($line) {
 						case "quit":
 							return;
+
+						case "2":
+							print $this->listSearchableFields();
+							break;
 					}
 				}
 			}
 		}
 		
+		protected function getSearchableFields() {
+			return [
+				"users"         => ["_id", "url", "external_id", "name", "alias"],
+				"tickets"       => ["_id", "url", "external_id", "created_at"],
+				"organizations" => ["_id", "url", "external_id", "details"],
+			];
+		}
+		protected function listSearchableFields() {
+			$fields = $this->getSearchableFields();
+			
+			$typeDescriptions = [];
+
+			foreach ($fields as $type => $fieldList) {
+				$head = "Search ". $type. "s with". PHP_EOL;
+				$body = join(PHP_EOL, $fieldList). PHP_EOL. PHP_EOL;
+				$typeDescriptions[] = $head. $body;
+			}
+			
+			$separator = str_repeat("-", SEPARATOR_LENGTH). PHP_EOL;
+
+			$ret = join($separator, $typeDescriptions);
+
+			return $ret;
+		}
 	}

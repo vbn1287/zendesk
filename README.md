@@ -2,14 +2,13 @@ Zendesk Search CLI Utility
 
 Usage:
 	Showing manual:
-		php zendesk_search 
-		or
 		php zendesk_search --help
+		php zendesk_search -h
 	
 	Searching items:
-		php zendesk_search search <item-type-to-search> <field-name-to-search> <field-value-to-search>
+		php zendesk_search <item-type-to-search> <field-name-to-search> <field-value-to-search>
 		or
-		php zendesk_search search
+		php zendesk_search
 		
 		The latter one asks for the arguments in an interactive way.
 		

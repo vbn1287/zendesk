@@ -9,6 +9,8 @@
 	class ZendeskSearcher {
 		protected $feeder = NULL;
 		
+		const SEPARATOR_LENGTH = 46;
+		
 		function __construct(ParamFeeder $paramFeeder) {
 			$this->feeder = $paramFeeder;
 		}
@@ -68,7 +70,7 @@
 				$typeDescriptions[] = $head. $body;
 			}
 			
-			$separator = str_repeat("-", SEPARATOR_LENGTH). PHP_EOL;
+			$separator = str_repeat("-", self::SEPARATOR_LENGTH). PHP_EOL;
 
 			$ret = join($separator, $typeDescriptions);
 

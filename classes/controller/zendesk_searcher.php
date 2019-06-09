@@ -82,13 +82,17 @@
 				
 				$items = $this->search($type, $field, $value);
 				
-				print $items;
+				print_r($items);
 				
 			}
 		}
 		
-		protected function search() {
-			return;
+		protected function search($type, $field, $value) {
+			$item = [
+				"_id" => $value,
+			];
+			$ret = [$item];
+			return $ret;
 		}
 		
 		protected function getSearchableFields() {

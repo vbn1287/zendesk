@@ -35,21 +35,60 @@
 			if (($el === "--help") || ($el === "-h")) {
 				$this->help();
 			} elseif ($el === "") {
+				
 				print "Welcome...";
+				
 				while (TRUE) {
-					$prompt = "Type 'quit' ". PHP_EOL. "Select...". PHP_EOL;
+					$prompt = "Type 'quit' " . PHP_EOL . "Select..." . PHP_EOL;
 					print $prompt;
 					$line = readline();
+					
 					switch ($line) {
 						case "quit":
 							return;
-
+						
+						case "1":
+							$prompt = "Select 1) Users or 2) Tickets or 3) Organizations";
+							print $prompt;
+							$type = readline();
+							
+							$prompt = "Enter search term";
+							print $prompt;
+							$field = readline();
+							
+							$prompt = "Enter search value";
+							print $prompt;
+							$value = readline();
+							
+							$items = $this->search($type, $field, $value);
+							
+							print_r($items);
+							
+							break;
+						
 						case "2":
 							print $this->getListSearchableFields();
 							break;
 					}
 				}
+			} else {
+				$type  = $el;
+				$field = $this->feeder->getNext();
+				$value = $this->feeder->getNext();
+				
+				if ($value === "") {
+					throw new NotEnoughArgumentsException();
+				}
+				
+				$items = $this->search($type, $field, $value);
+				
+				print $items;
+				
 			}
+		}
+		
+		protected function search() {
+			return;
 		}
 		
 		protected function getSearchableFields() {

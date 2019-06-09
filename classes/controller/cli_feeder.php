@@ -9,7 +9,8 @@
 	class CliFeeder extends ParamFeeder {
 		protected $items = NULL;
 		protected $cursor = 0;
-		protected $argGetter = NULL;
+		
+		protected $argGetter = NULL; // argument getter is needed to test getting arguments from a mocked command line
 		
 		function __construct(callable $argGetter = NULL) {
 			$this->argGetter = $argGetter;

@@ -2,9 +2,12 @@
 	class AutoloadHandler {
 		/**
 		 * @param $className string name of the file to include
+		 * @return bool
 		 * @throws Exception if include file not found
 		 */
 		static function autoloader(string $className) {
+			$rootDir = __DIR__. "/../";
+			
 			$fileName = NULL;
 			
 			$dirs = [
@@ -18,20 +21,25 @@
 			$baseFileName = self::classNameToFileName($className);
 
 			foreach ($dirs as $dir) {
-				$fileName = "classes/". $dir. "/". $baseFileName;
+				$fileName = $rootDir. "classes/". $dir. "/". $baseFileName;
 				if (file_exists($fileName)) {
 					break;
 				}
 			}
 			
 			if (($fileName === NULL) || !file_exists($fileName)) {
-				$msg = sprintf("Autoload not found: classname = \"%s\", filename = \"%s\"", $className, $fileName);
-				throw new Exception($msg);
+				return FALSE;
 			}
 			
 			include_once($fileName);
 		}
 		
+		/**
+		 * Converts a CamelCase class name into a snake_case file name.
+		 *
+		 * @param $className
+		 * @return mixed|string
+		 */
 		static function classNameToFileName( $className ) {
 			$pattern = "/([A-Z])/";
 			$ret = preg_replace( $pattern, "_$1", $className );

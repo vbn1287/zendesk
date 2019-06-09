@@ -9,6 +9,11 @@
 	class CliFeeder extends ParamFeeder {
 		protected $items = NULL;
 		protected $cursor = 0;
+		protected $argGetter = NULL;
+		
+		function __construct(callable $argGetter = NULL) {
+			$this->argGetter = $argGetter;
+		}
 		
 		function getNext():string {
 			if ($this->items === NULL) {
@@ -27,7 +32,12 @@
 		protected function init() {
 			global $argv;
 
-			$this->items  = $argv;
+			if ($this->argGetter === NULL) {
+				$this->items = $argv;
+			} else {
+				$this->items = ($this->argGetter)();
+			}
+			
 			$this->cursor = 1;
 		}
 	}

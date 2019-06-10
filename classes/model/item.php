@@ -125,7 +125,7 @@
 			return $str;
 		}
 		
-		protected function relatedItemToString($item, $padding) {
+		protected function relatedItemToString($item, $padding):string {
 			if (is_array($item)) {
 				$items = array_map(function(Item $el){
 					return $el->toStringAsRelated();
@@ -136,6 +136,8 @@
 				$ret = "[". PHP_EOL. $padding. $indent. join(",". PHP_EOL. $padding. $indent, $items). PHP_EOL. $padding. "]";
 				
 				return $ret;
+			} elseif ($item === NULL) {
+				return "null";
 			} else {
 				/** @var Item $item */
 				return $item->toStringAsRelated();

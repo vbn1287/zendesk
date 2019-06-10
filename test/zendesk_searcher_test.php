@@ -109,18 +109,60 @@
 			$this->expectOutputRegex("/6/");
 		}
 		
-		public function testRunInteractiveSearch() {
+		public function testRunInteractiveSearchForTickets() {
 			$paramFeeder = new CliFeeder(function() {
 				return ["program.php"];
 			});
 			
-			$sf = new SequenceFeeder(["1", "tickets", "_id", "436bf9b0-1147-4c0a-8439-6f79833bff5b", "quit"]);
+			$sf = new SequenceFeeder(["1", "2", "_id", "436bf9b0-1147-4c0a-8439-6f79833bff5b", "quit"]);
 			
 			$zs = new ZendeskSearcherProxy($paramFeeder);
 			$zs->setReader([$sf, "getNext"]);
 			
 			$zs->run();
 			$this->expectOutputRegex("/_id[\s]+\"436bf9b0-1147-4c0a-8439-6f79833bff5b\"/");
+		}
+		
+		public function testRunInteractiveSearchWrongSearchTerm() {
+			$paramFeeder = new CliFeeder(function() {
+				return ["program.php"];
+			});
+			
+			$sf = new SequenceFeeder(["1", "non-existing-search-option", "2", "non-existing-search-term", "_id", "436bf9b0-1147-4c0a-8439-6f79833bff5b", "quit"]);
+			
+			$zs = new ZendeskSearcherProxy($paramFeeder);
+			$zs->setReader([$sf, "getNext"]);
+			
+			$zs->run();
+			$this->expectOutputRegex("/_id[\s]+\"436bf9b0-1147-4c0a-8439-6f79833bff5b\"/");
+		}
+		
+		public function testRunInteractiveSearchNothingFound() {
+			$paramFeeder = new CliFeeder(function() {
+				return ["program.php"];
+			});
+			
+			$sf = new SequenceFeeder(["1", "2", "_id", "non-existing-value", "quit"]);
+			
+			$zs = new ZendeskSearcherProxy($paramFeeder);
+			$zs->setReader([$sf, "getNext"]);
+			
+			$zs->run();
+			$this->expectOutputRegex("/No results found/");
+		}
+		
+		public function testRunInteractiveSearchHasSeparator() {
+			$paramFeeder = new CliFeeder(function() {
+				return ["program.php"];
+			});
+			
+			$sf = new SequenceFeeder(["1", "2", "status", "pending", "quit"]);
+			
+			$zs = new ZendeskSearcherProxy($paramFeeder);
+			$zs->setReader([$sf, "getNext"]);
+			
+			$zs->run();
+			$this->expectOutputRegex("/--------/");
 		}
 	}
 	

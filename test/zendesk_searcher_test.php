@@ -18,6 +18,21 @@
 		}
 	}
 	
+	class SequenceFeeder {
+		protected $array = [];
+		protected $cursor = 0;
+		
+		function __construct($array) {
+			$this->array = $array;
+		}
+		
+		function getNext() {
+			$ret = $this->array[$this->cursor];
+			$this->cursor++;
+			return $ret;
+		}
+	}
+	
 	final class ZendeskSearcherTest extends TestCase {
 		public function testHelp(): void {
 			$paramFeeder = new CliFeeder;
@@ -73,5 +88,49 @@
 			$zs->run();
 			$this->expectOutputRegex("/6/");
 		}
+		
+		public function testRunQuit() {
+			$paramFeeder = new CliFeeder(function() {
+				return ["program.php"];
+			});
+			
+			$sf = new SequenceFeeder(["quit"]);
+			
+			$zs = new ZendeskSearcherProxy($paramFeeder);
+			$zs->setReader([$sf, "getNext"]);
+			
+			$zs->run();
+			$this->assertEquals(1, 1); // we just assert that the code has returned.
+		}
+		
+		public function testRunInteractiveSearch() {
+			$paramFeeder = new CliFeeder(function() {
+				return ["program.php"];
+			});
+			
+			$sf = new SequenceFeeder(["1", "2", "_id", "9", "quit"]);
+			
+			$zs = new ZendeskSearcherProxy($paramFeeder);
+			$zs->setReader([$sf, "getNext"]);
+			
+			$zs->run();
+			$this->expectOutputRegex("/ \[_id\] => 9/");
+		}
+		
+		public function testRunInteractiveListOfFields() {
+			$paramFeeder = new CliFeeder(function() {
+				return ["program.php"];
+			});
+			
+			$sf = new SequenceFeeder(["2", "quit"]);
+			
+			$zs = new ZendeskSearcherProxy($paramFeeder);
+			$zs->setReader([$sf, "getNext"]);
+			
+			$zs->run();
+			$this->expectOutputRegex("/\n_id.*\nexternal_id/s");
+		}
 	}
 	
+		
+

@@ -10,7 +10,8 @@
 	
 	class SearchEngineProxy extends SearchEngine {
 		public function setDataDir($dir) {
-			$this->dataDir = $dir;
+			$this->dataHandler = new DataHandlerProxy();
+			$this->dataHandler->setDataDir($dir);
 		}
 		
 		public static function isEqual(Item $item, string $field, string $value) {
@@ -19,27 +20,6 @@
 	}
 	
 	final class SearchEngineTest extends TestCase {
-		
-		public function testBadJson() {
-			$searchEngine = new SearchEngineProxy();
-			$searchEngine->setDataDir(__DIR__. "/data/bad_json/");
-			$this->expectException(DataFileLoadErrorException::class);
-			$items = $searchEngine->search("users", "_id", 1);
-		}
-		
-		public function testNonArrayJson() {
-			$searchEngine = new SearchEngineProxy();
-			$searchEngine->setDataDir(__DIR__. "/data/not_array_json/");
-			$this->expectException(DataFileLoadErrorException::class);
-			$items = $searchEngine->search("users", "_id", 1);
-		}
-		
-		public function testNoIdInArrayElementInJson() {
-			$searchEngine = new SearchEngineProxy();
-			$searchEngine->setDataDir(__DIR__. "/data/no_id_in_array/");
-			$this->expectException(DataFileLoadErrorException::class);
-			$items = $searchEngine->search("users", "_id", 1);
-		}
 		
 		public function testSearchOneUser() {
 			$searchEngine = new SearchEngineProxy();

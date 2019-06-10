@@ -10,54 +10,10 @@
 	 */
 	class SearchEngine {
 		protected $data = NULL;
-		protected $dataDir = NULL;
-
-		function __construct() {
-			$this->dataDir = __DIR__. "/../../data/";
-		}
+		protected $dataHandler = NULL;
 		
-		protected function readData() {
-			$files = scandir($this->dataDir);
-			
-			foreach ($files as $file) {
-				if (substr($file, -5) === ".json") {
-					$content = file_get_contents($this->dataDir. $file);
-
-					if ($content === FALSE) {
-						throw new DataFileLoadErrorException();
-					}
-					
-					$data = json_decode($content, TRUE);
-					
-					if (json_last_error() !== JSON_ERROR_NONE) {
-						throw new DataFileLoadErrorException();
-					}
-					
-					$type = substr($file, 0, -5);
-					
-					$className = ucfirst(substr($type, 0, -1)); // removes the "s" suffix: "users" => "User". It may need adjustment if new type is introduced
-					
-					if (!is_array($data)) {
-						throw new DataFileLoadErrorException();
-					}
-					
-					$this->data[$type] = [];
-						
-					foreach ($data as $item) {
-						if (!array_key_exists("_id", $item)) {
-							throw new DataFileLoadErrorException();
-						}
-						
-						$id = $item["_id"];
-						
-						$obj = new $className;
-						
-						/** @var Item $obj */
-						$this->data[$type][$id] = $obj->fillFromArray($item);
-					}
-					
-				}
-			}
+		function __construct() {
+			$this->dataHandler = new DataHandler();
 		}
 		
 		/**
@@ -90,7 +46,7 @@
 		 */
 		function search($type, $field, $value) {
 			if ($this->data === NULL) {
-				$this->readData();
+				$this->data = $this->dataHandler->readData();
 			}
 			
 			switch (self::stringifyType($type)) {

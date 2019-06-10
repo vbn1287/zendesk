@@ -12,6 +12,8 @@
 		protected $feeder = NULL;
 		protected $reader = "readline"; // the function that reads from the stdio, or its test mock.
 		protected $searchEngine = NULL;
+		protected $languageHandler = NULL;
+		protected $itemLister = NULL;
 		
 		const SEPARATOR_LENGTH = 46;
 		
@@ -203,25 +205,11 @@
 		 * @return string
 		 */
 		protected function itemsToString($items, $type, $field, $value):string {
-			if (count($items) === 0) {
-				$msg = sprintf($this->languageHandler->get("no_hits"), SearchEngine::stringifyType($type), $field, $value);
-				return $msg;
+			if ($this->itemLister === NULL) {
+				$this->itemLister = new ItemLister($this->languageHandler);
 			}
 			
-			$str = "";
-			
-			$separator = str_repeat("-", 50). PHP_EOL;
-			
-			foreach ($items as $item) {
-				if ($str !== "") {
-					$str .= $separator;
-				}
-				
-				/** @var Item $item */
-				$str .= $item->toString();
-			}
-
-			return $str;
+			return $this->itemLister->itemsToString($items, $type, $field, $value);
 		}
 
 	}

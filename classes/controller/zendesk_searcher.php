@@ -65,7 +65,7 @@
 							
 							$items = $this->search($type, $field, $value);
 							
-							$this->reportFoundItems($items, $type, $field, $value);
+							print $this->itemsToString($items, $type, $field, $value);
 							
 							break;
 						
@@ -85,7 +85,7 @@
 				
 				$items = $this->search($type, $field, $value);
 				
-				$this->reportFoundItems($items, $type, $field, $value);
+				print $this->itemsToString($items, $type, $field, $value);
 				
 			}
 		}
@@ -128,14 +128,19 @@
 			return $ret;
 		}
 		
-		protected function reportFoundItems($items, $type, $field, $value) {
+		protected function itemsToString($items, $type, $field, $value) {
 			if (count($items) === 0) {
 				$msg = sprintf($this->languageHandler->get("no_hits"), SearchEngine::stringifyType($type), $field, $value);
-				print $msg;
-				return;
+				return $msg;
 			}
 			
-			print_r($items);
+			$str = "";
+			
+			foreach ($items as $item) {
+				$str .= $item->toString();
+			}
+
+			return $str;
 		}
 
 	}

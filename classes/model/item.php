@@ -62,4 +62,65 @@
 		function addRelatedItems($relationName, $items) {
 			$this->relatedItems[$relationName] = $items;
 		}
+		
+		function toString() {
+			$str = "";
+			
+			$class = get_called_class();
+			
+			$maxLength = 0;
+			
+			foreach ($class::$attributes as $key => $type) {
+				if (strlen($key) > $maxLength) {
+					$maxLength = strlen($key);
+				}
+			}
+			
+			foreach ($this->relatedItems as $key => $type) {
+				if (strlen($key) > $maxLength) {
+					$maxLength = strlen($key);
+				}
+			}
+
+			foreach ($class::$attributes as $key => $type) {
+				$padding = str_repeat(" ", $maxLength - strlen($key) + 2);
+
+				$value = self::getAttrValue($key);
+				
+				switch (self::getAttrType($key)) {
+					case "array":
+						$value = array_map(function($el) {
+							return "\"". $el. "\"";
+						}, $value);
+						$value = "[". join(", ", $value). "]";
+						break;
+					
+					case "boolean":
+						$value = ($value === TRUE) ? "true" : (($value === FALSE) ? "false" : "");
+						break;
+					
+					case "string":
+					case "email":
+					case "url":
+					case "uuid":
+					case "timestamp":
+						$value = ($value === NULL) ? "NULL" : "\"". $value. "\"";
+						break;
+					
+					case "integer":
+						$value = ($value === NULL) ? "NULL" : $value;
+						break;
+						
+				}
+				
+				$str .= $key. $padding. $value. PHP_EOL;
+			}
+			
+			foreach ($this->relatedItems as $key => $type) {
+				$padding = str_repeat(" ", $maxLength - strlen($key) + 2);
+				$str .= $key. $padding. "???". PHP_EOL;
+			}
+			
+			return $str;
+		}
 	}

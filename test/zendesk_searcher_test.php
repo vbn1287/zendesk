@@ -66,17 +66,9 @@
 			$paramFeeder = new CliFeeder(function() {
 				return ["program.php", "users"];
 			});
-			
+			$this->expectException(NotEnoughArgumentsException::class);
 			$zs = new ZendeskSearcherProxy($paramFeeder);
-			try {
-				$zs->run();
-			} catch (\Throwable $t) {
-				$this->assertEquals($t->getMessage(), "error.not_enough_arguments");
-				return;
-			}
-			
-			// if the above catch did not happen then the expected throw did not happen.
-			$this->assertEquals(1, 2);
+			$zs->run();
 		}
 		
 		public function testRunQuit() {
@@ -128,7 +120,7 @@
 			$zs->setReader([$sf, "getNext"]);
 			
 			$zs->run();
-			$this->expectOutputRegex("/ \[_id\] => 436bf9b0-1147-4c0a-8439-6f79833bff5b/");
+			$this->expectOutputRegex("/_id[\s]+\"436bf9b0-1147-4c0a-8439-6f79833bff5b\"/");
 		}
 	}
 	

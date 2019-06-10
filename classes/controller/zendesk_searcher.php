@@ -8,11 +8,17 @@
 	 */
 	class ZendeskSearcher {
 		protected $feeder = NULL;
+		protected $reader = "readline";
 		
 		const SEPARATOR_LENGTH = 46;
 		
 		function __construct(ParamFeeder $paramFeeder) {
 			$this->feeder = $paramFeeder;
+			$this->languageHandler = new LanguageHandler("en");
+		}
+		
+		function setReader(callable $reader) {
+			$this->reader = $reader;
 		}
 		
 		static function getHelp(): string {
@@ -36,29 +42,25 @@
 				$this->help();
 			} elseif ($el === "") {
 				
-				print "Welcome...";
+				print $this->languageHandler->get("welcome");
 				
 				while (TRUE) {
-					$prompt = "Type 'quit' " . PHP_EOL . "Select..." . PHP_EOL;
-					print $prompt;
-					$line = readline();
+					print $this->languageHandler->get("type_quit");
+					$line = ($this->reader)();
 					
 					switch ($line) {
 						case "quit":
 							return;
 						
 						case "1":
-							$prompt = "Select 1) Users or 2) Tickets or 3) Organizations";
-							print $prompt;
-							$type = readline();
+							print $this->languageHandler->get("select_type");
+							$type = ($this->reader)();
 							
-							$prompt = "Enter search term";
-							print $prompt;
-							$field = readline();
+							print $this->languageHandler->get("select_search_term");
+							$field = ($this->reader)();
 							
-							$prompt = "Enter search value";
-							print $prompt;
-							$value = readline();
+							print $this->languageHandler->get("select_search_value");
+							$value = ($this->reader)();
 							
 							$items = $this->search($type, $field, $value);
 							

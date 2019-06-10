@@ -152,9 +152,9 @@
 				return FALSE;
 			}
 			
-			switch ($item->getAttrValue($field)) {
+			switch ($item->getAttrType($field)) {
 				case "integer":
-					return ((string)$item->getAttrValue($field) === $value);
+					return ((string)$item->getAttrValue($field) === (string)$value);
 				
 				case "boolean":
 					if ((strtolower($value) === "true") && ($item->getAttrValue($field) === TRUE)) {

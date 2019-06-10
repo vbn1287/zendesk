@@ -38,7 +38,9 @@
 		}
 		
 		function getAttrType($name) {
-			return $this->attributes[$name];
+			$class = get_called_class();
+			$arr = $class::$attributes;
+			return $arr[$name];
 		}
 		
 		function fillFromArray($arr) {

@@ -74,6 +74,7 @@
 			$zs->setReader([$sf, "getNext"]);
 			
 			$zs->run();
+			$this->expectOutputRegex("/Zendesk/");
 			$this->assertEquals(1, 1); // we just assert that the code has returned.
 		}
 		

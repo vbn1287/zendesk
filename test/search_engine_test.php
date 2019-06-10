@@ -12,6 +12,10 @@
 		public function setDataDir($dir) {
 			$this->dataDir = $dir;
 		}
+		
+		public static function isEqual(Item $item, string $field, string $value) {
+			return parent::isEqual($item, $field, $value);
+		}
 	}
 	
 	final class SearchEngineTest extends TestCase {
@@ -78,6 +82,62 @@
 			$items = $searchEngine->search("pink_unicorns", "age", "9999");
 			
 			$this->assertSame($items, []);
+		}
+
+		public function testIsEqualIdAttribute() {
+			$item = new User;
+			$item->fillFromArray([
+				"_id"       => 1,
+				"suspended" => FALSE,
+				"shared"    => TRUE,
+			]);
+			$ret = SearchEngineProxy::isEqual($item, "_id", 1);
+			$this->assertSame($ret, TRUE);
+		}
+
+		public function testIsEqualWrongAttribute() {
+			$item = new User;
+			
+			$ret = SearchEngineProxy::isEqual($item, "no-such-field", 1);
+			$this->assertSame($ret, FALSE);
+		}
+		
+		public function testIsEqualBooleanAttribute() {
+			$item = new User;
+			$item->fillFromArray([
+				"_id"       => 1,
+				"suspended" => FALSE,
+				"shared"    => TRUE,
+			]);
+			
+			$ret = SearchEngineProxy::isEqual($item, "suspended", "false");
+			$this->assertSame($ret, TRUE);
+			
+			$ret = SearchEngineProxy::isEqual($item, "suspended", "true");
+			$this->assertSame($ret, FALSE);
+			
+			$ret = SearchEngineProxy::isEqual($item, "shared", "true");
+			$this->assertSame($ret, TRUE);
+			
+			$ret = SearchEngineProxy::isEqual($item, "shared", "false");
+			$this->assertSame($ret, FALSE);
+		}
+		
+		public function testIsEqualArrayAttribute() {
+			$item = new User;
+			$item->fillFromArray([
+				"tags"      => ["alpha", "beta"],
+			]);
+			
+			$ret = SearchEngineProxy::isEqual($item, "tags", "alpha");
+			$this->assertSame($ret, TRUE);
+			
+			$ret = SearchEngineProxy::isEqual($item, "tags", "beta");
+			$this->assertSame($ret, TRUE);
+			
+			$ret = SearchEngineProxy::isEqual($item, "tags", "gamma");
+			$this->assertSame($ret, FALSE);
+			
 		}
 	}
 	

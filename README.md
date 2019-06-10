@@ -33,7 +33,12 @@ Usage:
 Requirements:
 	php 7.1
 	register_argc_argv must be enabled (this is the default)
-	
+	memory_limit = 512M
+		current data:
+			75 users => 52KB
+		projected data:
+			10k user => 7MB (assuming what we have is representative)
+			
 	
 	
 				

@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Code Coverage for Y:\Projektek\zendesk\classes\exception\dictionary_reading_exception.php</title>
+  <title>Code Coverage for Y:\Projektek\zendesk\classes\view\lister.php</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../../.css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="../../.css/octicons.css" rel="stylesheet" type="text/css">
@@ -18,8 +18,8 @@
        <ol class="breadcrumb">
          <li class="breadcrumb-item"><a href="../../index.html">Y:\Projektek\zendesk</a></li>
          <li class="breadcrumb-item"><a href="../index.html">classes</a></li>
-         <li class="breadcrumb-item"><a href="index.html">exception</a></li>
-         <li class="breadcrumb-item active">dictionary_reading_exception.php</li>
+         <li class="breadcrumb-item"><a href="index.html">view</a></li>
+         <li class="breadcrumb-item active">lister.php</li>
 
        </ol>
       </nav>
@@ -69,11 +69,11 @@
        </div>
 </td>
        <td class="success small"><div align="right">100.00%</div></td>
-       <td class="success small"><div align="right">3&nbsp;/&nbsp;3</div></td>
+       <td class="success small"><div align="right">2&nbsp;/&nbsp;2</div></td>
       </tr>
 
       <tr>
-       <td class="success">DictionaryReadingException</td>
+       <td class="success">Lister</td>
        <td class="success big">       <div class="progress">
          <div class="progress-bar bg-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
            <span class="sr-only">100.00% covered (success)</span>
@@ -98,11 +98,11 @@
        </div>
 </td>
        <td class="success small"><div align="right">100.00%</div></td>
-       <td class="success small"><div align="right">3&nbsp;/&nbsp;3</div></td>
+       <td class="success small"><div align="right">2&nbsp;/&nbsp;2</div></td>
       </tr>
 
       <tr>
-       <td class="success" colspan="4">&nbsp;<a href="#9"><abbr title="__construct($message = NULL, $code = 0, Exception $previous = null)">__construct</abbr></a></td>
+       <td class="success" colspan="4">&nbsp;<a href="#14"><abbr title="__construct($languageHandler)">__construct</abbr></a></td>
        <td class="success big">       <div class="progress">
          <div class="progress-bar bg-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
            <span class="sr-only">100.00% covered (success)</span>
@@ -119,7 +119,7 @@
        </div>
 </td>
        <td class="success small"><div align="right">100.00%</div></td>
-       <td class="success small"><div align="right">3&nbsp;/&nbsp;3</div></td>
+       <td class="success small"><div align="right">2&nbsp;/&nbsp;2</div></td>
       </tr>
 
 
@@ -131,16 +131,21 @@
      <tr><td><div align="right"><a name="1"></a><a href="#1">1</a></div></td><td class="codeLine"><span class="default">&lt;?php</span></td></tr>
      <tr><td><div align="right"><a name="2"></a><a href="#2">2</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
      <tr><td><div align="right"><a name="3"></a><a href="#3">3</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
-     <tr><td><div align="right"><a name="4"></a><a href="#4">4</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Thrown&nbsp;when&nbsp;the&nbsp;dictionary&nbsp;file&nbsp;cannot&nbsp;be&nbsp;read&nbsp;or&nbsp;processed.</span></td></tr>
-     <tr><td><div align="right"><a name="5"></a><a href="#5">5</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
-     <tr><td><div align="right"><a name="6"></a><a href="#6">6</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Class&nbsp;DictionaryReadingException</span></td></tr>
-     <tr><td><div align="right"><a name="7"></a><a href="#7">7</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
-     <tr><td><div align="right"><a name="8"></a><a href="#8">8</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">class</span><span class="default">&nbsp;</span><span class="default">DictionaryReadingException</span><span class="default">&nbsp;</span><span class="keyword">extends</span><span class="default">&nbsp;</span><span class="default">Exception</span><span class="default">&nbsp;</span><span class="keyword">{</span></td></tr>
-     <tr><td><div align="right"><a name="9"></a><a href="#9">9</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">function</span><span class="default">&nbsp;</span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$message</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">NULL</span><span class="keyword">,</span><span class="default">&nbsp;</span><span class="default">$code</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">0</span><span class="keyword">,</span><span class="default">&nbsp;</span><span class="default">Exception</span><span class="default">&nbsp;</span><span class="default">$previous</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">null</span><span class="keyword">)</span><span class="default">&nbsp;</span><span class="keyword">{</span></td></tr>
-     <tr class="covered-by-large-tests popin" data-title="2 tests cover line 10" data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;LanguageHandlerTest::testMissingFile&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;LanguageHandlerTest::testNoJsonFile&lt;/li&gt;&lt;/ul&gt;" data-placement="bottom" data-html="true"><td><div align="right"><a name="10"></a><a href="#10">10</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="default">$message</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">$message</span><span class="default">&nbsp;</span><span class="default">??</span><span class="default">&nbsp;</span><span class="default">&quot;error.dictionary_reading_error&quot;</span><span class="keyword">;</span></td></tr>
-     <tr class="covered-by-large-tests popin" data-title="2 tests cover line 11" data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;LanguageHandlerTest::testMissingFile&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;LanguageHandlerTest::testNoJsonFile&lt;/li&gt;&lt;/ul&gt;" data-placement="bottom" data-html="true"><td><div align="right"><a name="11"></a><a href="#11">11</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="default">parent</span><span class="default">::</span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$message</span><span class="keyword">,</span><span class="default">&nbsp;</span><span class="default">$code</span><span class="keyword">,</span><span class="default">&nbsp;</span><span class="default">$previous</span><span class="keyword">)</span><span class="keyword">;</span></td></tr>
-     <tr class="covered-by-large-tests popin" data-title="2 tests cover line 12" data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;LanguageHandlerTest::testMissingFile&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;LanguageHandlerTest::testNoJsonFile&lt;/li&gt;&lt;/ul&gt;" data-placement="bottom" data-html="true"><td><div align="right"><a name="12"></a><a href="#12">12</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span></td></tr>
-     <tr><td><div align="right"><a name="13"></a><a href="#13">13</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span></td></tr>
+     <tr><td><div align="right"><a name="4"></a><a href="#4">4</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Created&nbsp;by&nbsp;PhpStorm.</span></td></tr>
+     <tr><td><div align="right"><a name="5"></a><a href="#5">5</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;User:&nbsp;halmai</span></td></tr>
+     <tr><td><div align="right"><a name="6"></a><a href="#6">6</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Date:&nbsp;2019.06.11.</span></td></tr>
+     <tr><td><div align="right"><a name="7"></a><a href="#7">7</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Time:&nbsp;2:30</span></td></tr>
+     <tr><td><div align="right"><a name="8"></a><a href="#8">8</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
+     <tr><td><div align="right"><a name="9"></a><a href="#9">9</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">abstract</span><span class="default">&nbsp;</span><span class="keyword">class</span><span class="default">&nbsp;</span><span class="default">Lister</span><span class="default">&nbsp;</span><span class="keyword">{</span></td></tr>
+     <tr><td><div align="right"><a name="10"></a><a href="#10">10</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="default">const</span><span class="default">&nbsp;</span><span class="default">SEPARATOR_LENGTH</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">46</span><span class="keyword">;</span></td></tr>
+     <tr><td><div align="right"><a name="11"></a><a href="#11">11</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+     <tr><td><div align="right"><a name="12"></a><a href="#12">12</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">protected</span><span class="default">&nbsp;</span><span class="default">$languageHandler</span><span class="keyword">;</span></td></tr>
+     <tr><td><div align="right"><a name="13"></a><a href="#13">13</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+     <tr><td><div align="right"><a name="14"></a><a href="#14">14</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">function</span><span class="default">&nbsp;</span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$languageHandler</span><span class="keyword">)</span><span class="default">&nbsp;</span><span class="keyword">{</span></td></tr>
+     <tr class="covered-by-large-tests popin" data-title="6 tests cover line 15" data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;ZendeskSearcherTest::testRunSearchFromCommandLine&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;ZendeskSearcherTest::testRunInteractiveSearchForTickets&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;ZendeskSearcherTest::testRunInteractiveSearchWrongSearchTerm&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;ZendeskSearcherTest::testRunListsRelations&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;ItemListerTest::testNoRecordFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;ItemListerTest::testMoreRecordsHaveSeparator&lt;/li&gt;&lt;/ul&gt;" data-placement="bottom" data-html="true"><td><div align="right"><a name="15"></a><a href="#15">15</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="default">$this</span><span class="default">-&gt;</span><span class="default">languageHandler</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">$languageHandler</span><span class="keyword">;</span></td></tr>
+     <tr class="covered-by-large-tests popin" data-title="6 tests cover line 16" data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;ZendeskSearcherTest::testRunSearchFromCommandLine&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;ZendeskSearcherTest::testRunInteractiveSearchForTickets&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;ZendeskSearcherTest::testRunInteractiveSearchWrongSearchTerm&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;ZendeskSearcherTest::testRunListsRelations&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;ItemListerTest::testNoRecordFound&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;ItemListerTest::testMoreRecordsHaveSeparator&lt;/li&gt;&lt;/ul&gt;" data-placement="bottom" data-html="true"><td><div align="right"><a name="16"></a><a href="#16">16</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span></td></tr>
+     <tr><td><div align="right"><a name="17"></a><a href="#17">17</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+     <tr><td><div align="right"><a name="18"></a><a href="#18">18</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span></td></tr>
 
     </tbody>
    </table>

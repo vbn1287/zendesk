@@ -1,6 +1,9 @@
 <?php
 	
 	/**
+	 * This class is responsible for feeding values to the main program that normally come from the Command Line Interface.
+	 * The purpose of this class is to make the CLI usage testable.
+	 *
 	 * Created by PhpStorm.
 	 * User: halmai
 	 * Date: 2019.06.09.
@@ -16,6 +19,11 @@
 			$this->argGetter = $argGetter;
 		}
 		
+		/**
+		 * Returns the next item from the Command Line.
+		 *
+		 * @return string
+		 */
 		function getNext():string {
 			if ($this->items === NULL) {
 				$this->init();

@@ -1,6 +1,8 @@
 <?php
 	
 	/**
+	 * This class contains the main search functionality.
+	 *
 	 * Created by PhpStorm.
 	 * User: halmai
 	 * Date: 2019.06.10.
@@ -58,6 +60,12 @@
 			}
 		}
 		
+		/**
+		 * Converts an integer type code (1, 2, 3) into its string representation ("users", "tickets", "organizations").
+		 *
+		 * @param $type
+		 * @return mixed
+		 */
 		static function stringifyType($type) {
 			$lookUp = [
 				1 => "users",
@@ -72,6 +80,14 @@
 			return $type;
 		}
 		
+		/**
+		 * Executes the search functionality, based on the type, field name and search value.
+		 *
+		 * @param $type
+		 * @param $field
+		 * @param $value
+		 * @return array
+		 */
 		function search($type, $field, $value) {
 			if ($this->data === NULL) {
 				$this->readData();
@@ -113,6 +129,13 @@
 			return $ret;
 		}
 		
+		/**
+		 * Adds the relations to the pure Item.
+		 *
+		 * @param Item $item
+		 * @param      $relations
+		 * @return Item
+		 */
 		protected function addRelations(Item $item, $relations) {
 			foreach ($relations as $relationName => $rules) {
 				list($has, $selfField, $foreignField) = $rules;
@@ -120,7 +143,7 @@
 				
 				$relatedItems = $this->getForeignValues($has, $item->getAttrValue($selfField), $foreignTable, $foreignColumn);
 				
-				$item->addRelatedItems($relationName, $relatedItems);
+				$this->relatedItems[$relationName] = $relatedItems;
 			}
 			
 			return $item;
@@ -144,6 +167,15 @@
 			return $this->searchItem($type, $relations, $field, $value);
 		}
 		
+		/**
+		 * Iterates over the data set and collects the items that have their searched value.
+		 *
+		 * @param $type
+		 * @param $relations
+		 * @param $field
+		 * @param $value
+		 * @return array
+		 */
 		protected function searchItem($type, $relations, $field, $value) {
 			$ret = [];
 			
@@ -157,6 +189,14 @@
 			return $ret;
 		}
 		
+		/**
+		 * Implements the comparison of an Item based on its given field and a search value.
+		 *
+		 * @param Item   $item
+		 * @param string $field
+		 * @param string $value
+		 * @return bool
+		 */
 		protected static function isEqual(Item $item, string $field, string $value) {
 			if (!$item->hasAttr($field)) {
 				return FALSE;

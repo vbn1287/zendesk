@@ -30,7 +30,7 @@
 	</testsuites>
 
 	<logging>
-		<log type="coverage-html" target="./coverage_report" lowUpperBound="35" highLowerBound="70"/>
+		<log type="coverage-html" target="./coverage_report" lowUpperBound="35" highLowerBound="90"/>
 	</logging>
 
 

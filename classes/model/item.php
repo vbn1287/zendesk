@@ -133,30 +133,34 @@
 
 				$value = self::getAttrValue($key);
 				
-				switch (self::getAttrType($key)) {
-					case "array":
-						$value = array_map(function($el) {
-							return "\"". $el. "\"";
-						}, $value);
-						$value = "[". join(", ", $value). "]";
-						break;
-					
-					case "boolean":
-						$value = ($value === TRUE) ? "true" : (($value === FALSE) ? "false" : "");
-						break;
-					
-					case "string":
-					case "email":
-					case "url":
-					case "uuid":
-					case "timestamp":
-						$value = ($value === NULL) ? "NULL" : "\"". $value. "\"";
-						break;
-					
-					case "integer":
-						$value = ($value === NULL) ? "NULL" : $value;
-						break;
+				if ($value === NULL) {
+					$value = "NULL";
+				} else {
+					switch (self::getAttrType($key)) {
+						case "array":
+							$value = array_map(function($el) {
+								return "\"". $el. "\"";
+							}, $value);
+							$value = "[". join(", ", $value). "]";
+							break;
 						
+						case "boolean":
+							$value = ($value === TRUE) ? "true" : (($value === FALSE) ? "false" : "");
+							break;
+						
+						case "string":
+						case "email":
+						case "url":
+						case "uuid":
+						case "timestamp":
+							$value = "\"". $value. "\"";
+							break;
+						
+						case "integer":
+							// do nothing, print what we already have.
+							break;
+						
+					}
 				}
 				
 				$str .= $key. $padding. $value. PHP_EOL;

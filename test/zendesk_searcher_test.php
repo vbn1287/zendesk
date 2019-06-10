@@ -43,14 +43,6 @@
 			$this->expectOutputRegex("/Zendesk/");
 		}
 		
-		public function testGetListSearchableFields() {
-			$paramFeeder = new CliFeeder;
-			$zs = new ZendeskSearcherProxy($paramFeeder);
-			
-			$list = $zs->getListSearchableFields();
-			$this->assertRegexp("/\n_id.*\nexternal_id/s", $list);
-		}
-		
 		public function testRunHelp() {
 			$paramFeeder = new CliFeeder(function() {
 				return ["program.php", "--help"];
@@ -137,32 +129,20 @@
 			$this->expectOutputRegex("/_id[\s]+\"436bf9b0-1147-4c0a-8439-6f79833bff5b\"/");
 		}
 		
-		public function testRunInteractiveSearchNothingFound() {
+		public function testRunListsRelations() {
 			$paramFeeder = new CliFeeder(function() {
 				return ["program.php"];
 			});
 			
-			$sf = new SequenceFeeder(["1", "2", "_id", "non-existing-value", "quit"]);
+			$sf = new SequenceFeeder(["1", "3", "_id", "101", "quit"]);
 			
 			$zs = new ZendeskSearcherProxy($paramFeeder);
 			$zs->setReader([$sf, "getNext"]);
 			
 			$zs->run();
-			$this->expectOutputRegex("/No results found/");
-		}
-		
-		public function testRunInteractiveSearchHasSeparator() {
-			$paramFeeder = new CliFeeder(function() {
-				return ["program.php"];
-			});
-			
-			$sf = new SequenceFeeder(["1", "2", "status", "pending", "quit"]);
-			
-			$zs = new ZendeskSearcherProxy($paramFeeder);
-			$zs->setReader([$sf, "getNext"]);
-			
-			$zs->run();
-			$this->expectOutputRegex("/--------/");
+			$this->expectOutputRegex("/submitter/");
+			$this->expectOutputRegex("/assignee/");
+			$this->expectOutputRegex("/organization/");
 		}
 	}
 	

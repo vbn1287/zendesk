@@ -12,8 +12,9 @@
 		protected $feeder = NULL;
 		protected $reader = "readline"; // the function that reads from the stdio, or its test mock.
 		protected $searchEngine = NULL;
-		
-		const SEPARATOR_LENGTH = 46;
+		protected $languageHandler = NULL;
+		protected $itemLister = NULL;
+		protected $searchableFieldLister = NULL;
 		
 		function __construct(ParamFeeder $paramFeeder) {
 			$this->feeder = $paramFeeder;
@@ -176,21 +177,13 @@
 		 * @return string
 		 */
 		protected function getListSearchableFields():string {
-			$fields = $this->getSearchableFields();
-			
-			$typeDescriptions = [];
-
-			foreach ($fields as $type => $fieldList) {
-				$head = sprintf($this->languageHandler->get("search_with"), ucfirst($type));
-				$body = join(PHP_EOL, $fieldList). PHP_EOL. PHP_EOL;
-				$typeDescriptions[] = $head. $body;
+			if ($this->searchableFieldLister === NULL) {
+				$this->searchableFieldLister = new SearchableFieldLister($this->languageHandler);
 			}
 			
-			$separator = str_repeat("-", self::SEPARATOR_LENGTH). PHP_EOL;
-
-			$ret = join($separator, $typeDescriptions);
-
-			return $ret;
+			$fields = $this->getSearchableFields();
+			
+			return $this->searchableFieldLister->list($fields);
 		}
 		
 		/**
@@ -203,25 +196,11 @@
 		 * @return string
 		 */
 		protected function itemsToString($items, $type, $field, $value):string {
-			if (count($items) === 0) {
-				$msg = sprintf($this->languageHandler->get("no_hits"), SearchEngine::stringifyType($type), $field, $value);
-				return $msg;
+			if ($this->itemLister === NULL) {
+				$this->itemLister = new ItemLister($this->languageHandler);
 			}
 			
-			$str = "";
-			
-			$separator = str_repeat("-", 50). PHP_EOL;
-			
-			foreach ($items as $item) {
-				if ($str !== "") {
-					$str .= $separator;
-				}
-				
-				/** @var Item $item */
-				$str .= $item->toString();
-			}
-
-			return $str;
+			return $this->itemLister->itemsToString($items, $type, $field, $value);
 		}
 
 	}

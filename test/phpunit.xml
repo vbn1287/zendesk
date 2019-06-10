@@ -28,7 +28,9 @@
 			<file>zendesk_searcher_test.php</file>
 			<file>search_engine_test.php</file>
 			<file>language_handler_test.php</file>
-			<file>data_handler_test.php</file>
+            <file>data_handler_test.php</file>
+            <file>item_lister_test.php</file>
+			<file>searchable_field_lister_test.php</file>
 		</testsuite>
 	</testsuites>
 
@@ -53,7 +55,10 @@
 			<file>..\classes\model\organization.php</file>
 			<file>..\classes\model\ticket.php</file>
 			<file>..\classes\model\user.php</file>
+			<file>..\classes\view\item_lister.php</file>
 			<file>..\classes\view\language_handler.php</file>
+			<file>..\classes\view\lister.php</file>
+			<file>..\classes\view\searchable_field_lister.php</file>
 			<file>..\classes\autoload_handler.php</file>
 			<file>..\classes\exception_handler.php</file>
 		</whitelist>

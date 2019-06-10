@@ -8,18 +8,20 @@
 	 */
 	class LanguageHandler {
 		protected $lang;
+		protected $dataDir;
 		protected $dictionary;
 		
 		function __construct($lang = "en") {
 			$this->lang = $lang;
+			$this->dataDir = __DIR__. "/../../lang/";
 			$this->dictionary = $this->readDictionary();
 		}
-		
-		function getDictionaryFileName($lang) {
-			return __DIR__. "/../../lang/". $lang. ".json";
+	
+		protected function getDictionaryFileName($lang) {
+			return $this->dataDir. $lang. ".json";
 		}
 		
-		function readDictionary() {
+		protected function readDictionary() {
 			$fileName = $this->getDictionaryFileName($this->lang);
 			
 			if (!file_exists($fileName)) {

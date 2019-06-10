@@ -1,0 +1,1 @@
+The only reason why this file is here is that empty directories are not added to git.

@@ -27,11 +27,12 @@
 			<file>cli_feeder_test.php</file>
 			<file>zendesk_searcher_test.php</file>
 			<file>search_engine_test.php</file>
+			<file>language_handler_test.php</file>
 		</testsuite>
 	</testsuites>
 
 	<logging>
-		<log type="coverage-html" target="./coverage_report" lowUpperBound="35" highLowerBound="90"/>
+		<log type="coverage-html" target="./coverage_report" lowUpperBound="35" highLowerBound="75"/>
 	</logging>
 
 
@@ -42,6 +43,10 @@
 			<file>..\classes\controller\param_feeder.php</file>
 			<file>..\classes\controller\zendesk_searcher.php</file>
 			<file>..\classes\controller\search_engine.php</file>
+			<file>..\classes\exception\data_file_load_error_exception.php</file>
+			<file>..\classes\exception\dictionary_reading_exception.php</file>
+			<file>..\classes\exception\help_not_found_exception.php</file>
+			<file>..\classes\exception\not_enough_arguments_exception.php</file>
 			<file>..\classes\model\item.php</file>
 			<file>..\classes\model\organization.php</file>
 			<file>..\classes\model\ticket.php</file>

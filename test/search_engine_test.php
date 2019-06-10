@@ -137,7 +137,29 @@
 			
 			$ret = SearchEngineProxy::isEqual($item, "tags", "gamma");
 			$this->assertSame($ret, FALSE);
+		}
+		
+		public function testIsEqualEmptyString() {
+			$item = new User;
+			$item->fillFromArray([
+				"name" => "",
+			]);
 			
+			// searching for empty string finds empty string
+			$ret = SearchEngineProxy::isEqual($item, "name", "");
+			$this->assertSame($ret, TRUE);
+			
+			// searching for non-empty string does not find empty string
+			$ret = SearchEngineProxy::isEqual($item, "name", "x");
+			$this->assertSame($ret, FALSE);
+			
+			$item->fillFromArray([
+				"name" => "x",
+			]);
+			
+			// searching for empty string does not find non-empty string
+			$ret = SearchEngineProxy::isEqual($item, "name", "");
+			$this->assertSame($ret, FALSE);
 		}
 	}
 	

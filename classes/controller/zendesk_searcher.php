@@ -99,11 +99,11 @@
 		}
 		
 		protected function getSearchableFields() {
-			$type = ["User", "Ticket", "Organization"];
+			$types = ["User", "Ticket", "Organization"];
 			
 			$ret = [];
 			
-			foreach ($type as $type) {
+			foreach ($types as $type) {
 				$ret[$type::getPluralName()] = $type::getFieldNames();
 			}
 			
@@ -142,6 +142,8 @@
 				if ($str !== "") {
 					$str .= $separator;
 				}
+				
+				/** @var Item $item */
 				$str .= $item->toString();
 			}
 

@@ -50,6 +50,7 @@
 						
 						$obj = new $className;
 						
+						/** @var Item $obj */
 						$this->data[$type][$id] = $obj->fillFromArray($item);
 					}
 					
@@ -95,6 +96,7 @@
 			$ret = [];
 			
 			foreach ($this->data[$foreignTable] as $foreignItem) {
+				/** @var Item $foreignItem */
 				if ($foreignItem->getAttrValue($foreignColumn) == $selfValue) {
 					if ($has === "hasOne") {
 						return $foreignItem;

@@ -32,6 +32,8 @@
 			}
 			
 			include_once($fileName);
+			
+			return TRUE;
 		}
 		
 		/**

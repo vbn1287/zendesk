@@ -127,7 +127,7 @@
 		
 		protected function relatedItemToString($item, $padding) {
 			if (is_array($item)) {
-				$items = array_map(function($el){
+				$items = array_map(function(Item $el){
 					return $el->toStringAsRelated();
 				}, $item);
 				
@@ -137,6 +137,7 @@
 				
 				return $ret;
 			} else {
+				/** @var Item $item */
 				return $item->toStringAsRelated();
 			}
 		}

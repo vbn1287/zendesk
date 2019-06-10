@@ -9,6 +9,8 @@
 	abstract class Item {
 		protected static $attributes = [];
 		protected static $relations = [];
+		protected $values = [];
+		protected $relatedItems = [];
 		
 		static function getPluralName() {
 			$class = strtolower(get_called_class());
@@ -23,5 +25,29 @@
 		static function getRelations() {
 			$class = get_called_class();
 			return $class::$relations;
+		}
+		
+		function getAttrValue($name) {
+			return $this->values[$name];
+		}
+		
+		function fillFromArray($arr) {
+			$this->values = [];
+			
+			$class = get_called_class();
+
+			foreach ($class::$attributes as $key => $type) {
+				if (array_key_exists($key, $arr)) {
+					$this->values[$key] = $arr[$key];
+				} else {
+					$this->values[$key] = NULL;
+				}
+			}
+			
+			return $this;
+		}
+		
+		function addRelatedItems($relationName, $items) {
+			$this->relatedItems[$relationName] = $items;
 		}
 	}

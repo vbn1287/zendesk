@@ -16,6 +16,7 @@
 		
 		protected function readData() {
 			$files = scandir($this->dataDir);
+			
 			foreach ($files as $file) {
 				if (substr($file, -5) === ".json") {
 					$content = file_get_contents($this->dataDir. $file);
@@ -30,29 +31,35 @@
 						throw new DataFileLoadErrorException();
 					}
 					
-					$this->data[substr($file, 0, -5)] = $data;
+					$type = substr($file, 0, -5);
+					
+					$className = ucfirst(substr($type, 0, -1)); // removes the "s" suffix: "users" => "User". It may need adjustment if new type is introduced
+					
+					if (!is_array($data)) {
+						throw new DataFileLoadErrorException();
+					}
+					
+					$this->data[$type] = [];
+						
+					foreach ($data as $item) {
+						if (!array_key_exists("_id", $item)) {
+							throw new DataFileLoadErrorException();
+						}
+						
+						$id = $item["_id"];
+						
+						$obj = new $className;
+						
+						$this->data[$type][$id] = $obj->fillFromArray($item);
+					}
+					
 				}
-			}
-		}
-		
-		protected function reindexData() {
-			
-			foreach ($this->data as $type => $records) {
-			
-				$reindexed = [];
-				
-				foreach ($records as $rec) {
-					$reindexed[$rec["_id"]] = $rec;
-				}
-				
-				$this->data[$type] = $reindexed;
 			}
 		}
 		
 		function search($type, $field, $value) {
 			if ($this->data === NULL) {
 				$this->readData();
-				$this->reindexData();
 			}
 			
 			switch ($type) {
@@ -66,10 +73,10 @@
 				case "tickets":
 					return $this->searchTickets($field, $value);
 
-				case "1":
+				case "3":
 					// fall-through
-				case "user":
-					return $this->searchUser($field, $value);
+				case "organizations":
+					return $this->searchOrganization($field, $value);
 				
 			}
 		}
@@ -77,12 +84,12 @@
 		protected function getForeignValues($has, $selfValue, $foreignTable, $foreignColumn) {
 			$ret = [];
 			
-			foreach ($this->data[$foreignTable] as $foreignRecord) {
-				if (array_key_exists($foreignColumn, $foreignRecord) && $foreignRecord[$foreignColumn] == $selfValue) {
+			foreach ($this->data[$foreignTable] as $foreignItem) {
+				if ($foreignItem->getAttrValue($foreignColumn) == $selfValue) {
 					if ($has === "hasOne") {
-						return $foreignRecord;
+						return $foreignItem;
 					} else {
-						$ret[] = $foreignRecord;
+						$ret[] = $foreignItem;
 					}
 				}
 			}
@@ -94,28 +101,47 @@
 			return $ret;
 		}
 		
-		protected function addRelations($item, $relations) {
+		protected function addRelations(Item $item, $relations) {
 			foreach ($relations as $relationName => $rules) {
 				list($has, $selfField, $foreignField) = $rules;
 				list($foreignTable, $foreignColumn) = explode(".", $foreignField);
 				
-				$item[$relationName] = $this->getForeignValues($has, $item[$selfField], $foreignTable, $foreignColumn);
+				$relatedItems = $this->getForeignValues($has, $item->getAttrValue($selfField), $foreignTable, $foreignColumn);
+				
+				$item->addRelatedItems($relationName, $relatedItems);
 			}
 			
 			return $item;
 		}
 		
 		protected function searchUsers($field, $value) {
+			$relations = User::getRelations();
+			$type = "users";
+			return $this->searchItem($type, $relations, $field, $value);
+		}
+		
+		protected function searchTickets($field, $value) {
+			$relations = Ticket::getRelations();
+			$type = "tickets";
+			return $this->searchItem($type, $relations, $field, $value);
+		}
+		
+		protected function searchOrganization($field, $value) {
+			$relations = Organization::getRelations();
+			$type = "organizations";
+			return $this->searchItem($type, $relations, $field, $value);
+		}
+		
+		protected function searchItem($type, $relations, $field, $value) {
 			$ret = [];
 			
-			foreach ($this->data["users"] as $user) {
-				if ($user[$field] == $value) {
-					$relations = User::getRelations();
-					$user = $this->addRelations($user, $relations);
-					$ret[] = $user;
+			foreach ($this->data[$type] as $item) {
+				if ($item->getAttrValue($field) == $value) {
+					$item = $this->addRelations($item, $relations);
+					$ret[] = $item;
 				}
 			}
-				
+			
 			return $ret;
 		}
 		

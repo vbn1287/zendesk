@@ -116,11 +116,30 @@
 				$str .= $key. $padding. $value. PHP_EOL;
 			}
 			
-			foreach ($this->relatedItems as $key => $type) {
-				$padding = str_repeat(" ", $maxLength - strlen($key) + 2);
-				$str .= $key. $padding. "???". PHP_EOL;
+			foreach ($this->relatedItems as $key => $item) {
+				$gap = 2;
+				$padding = str_repeat(" ", $maxLength - strlen($key) + $gap);
+				$str .= $key. $padding. $this->relatedItemToString($item, str_repeat(" ", $maxLength + $gap)). PHP_EOL;
 			}
 			
 			return $str;
 		}
+		
+		protected function relatedItemToString($item, $padding) {
+			if (is_array($item)) {
+				$items = array_map(function($el){
+					return $el->toStringAsRelated();
+				}, $item);
+				
+				$indent = "    ";
+				
+				$ret = "[". PHP_EOL. $padding. $indent. join(",". PHP_EOL. $padding. $indent, $items). PHP_EOL. $padding. "]";
+				
+				return $ret;
+			} else {
+				return $item->toStringAsRelated();
+			}
+		}
+		
+		abstract protected function toStringAsRelated();
 	}

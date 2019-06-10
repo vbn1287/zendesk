@@ -31,4 +31,10 @@
 			"assignee"     => ["hasOne", "assignee_id", "users._id"],
 			"organization" => ["hasOne", "organization_id", "organizations._id"],
 		];
+		
+		protected function toStringAsRelated() {
+			$ret = sprintf("#%s (%s)", $this->getAttrValue("_id"), $this->getAttrValue("subject"));
+			return $ret;
+		}
+		
 	}

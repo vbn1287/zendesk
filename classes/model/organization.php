@@ -23,4 +23,9 @@
 			"tickets" => ["hasMany", "_id", "tickets.organization_id"],
 			"users"   => ["hasMany", "_id", "users.organization_id"],
 		];
+		
+		protected function toStringAsRelated() {
+			$ret = sprintf("#%s (%s)", $this->getAttrValue("_id"), $this->getAttrValue("name"));
+			return $ret;
+		}
 	}

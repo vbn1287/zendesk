@@ -57,24 +57,32 @@
 			}
 		}
 		
+		static function stringifyType($type) {
+			$lookUp = [
+				1 => "users",
+				2 => "tickets",
+				3 => "organizations",
+			];
+			
+			if (array_key_exists($type, $lookUp)) {
+				$type = $lookUp[$type];
+			}
+			
+			return $type;
+		}
+		
 		function search($type, $field, $value) {
 			if ($this->data === NULL) {
 				$this->readData();
 			}
 			
-			switch ($type) {
-				case "1":
-					// fall-through
+			switch (self::stringifyType($type)) {
 				case "users":
 					return $this->searchUsers($field, $value);
 				
-				case "2":
-					// fall-through
 				case "tickets":
 					return $this->searchTickets($field, $value);
 
-				case "3":
-					// fall-through
 				case "organizations":
 					return $this->searchOrganization($field, $value);
 				

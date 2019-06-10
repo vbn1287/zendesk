@@ -4,5 +4,6 @@
 	"select_type": "Select 1) Users or 2) Tickets or 3) Organizations\n",
 	"select_search_term": "Enter search term\n",
 	"select_search_value": "Enter search value\n",
-	"search_with": "Search %s with\n"
+	"search_with": "Search %s with\n",
+	"no_hits": "Searching %s for %s with a value of %s\nNo results found\n"
 }

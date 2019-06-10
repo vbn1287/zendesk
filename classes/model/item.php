@@ -8,6 +8,7 @@
 	 */
 	abstract class Item {
 		protected static $attributes = [];
+		protected static $relations = [];
 		
 		static function getPluralName() {
 			$class = strtolower(get_called_class());
@@ -17,5 +18,10 @@
 		static function getFieldNames() {
 			$class = get_called_class();
 			return array_keys($class::$attributes);
+		}
+		
+		static function getRelations() {
+			$class = get_called_class();
+			return $class::$relations;
 		}
 	}

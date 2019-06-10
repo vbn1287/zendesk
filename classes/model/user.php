@@ -28,4 +28,10 @@
 			"suspended"       => "boolean",
 			"role"            => "string",
 		];
+		
+		protected static $relations = [
+			"organization"      => ["hasOne", "organization_id", "organizations._id"],
+			"submitted_tickets" => ["hasMany", "_id", "tickets.submitter_id"],
+			"assigned_tickets"  => ["hasMany", "_id", "tickets.assignee_id"],
+		];
 	}

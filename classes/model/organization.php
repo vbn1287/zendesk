@@ -18,4 +18,9 @@
 			"shared_tickets" => "boolean",
 			"tags"           => "array",
 		];
+		
+		protected static $relations = [
+			"tickets" => ["hasMany", "_id", "tickets.organization_id"],
+			"users"   => ["hasMany", "_id", "users.organization_id"],
+		];
 	}

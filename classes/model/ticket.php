@@ -26,4 +26,9 @@
 			"via"             => "string",
 		];
 		
+		protected static $relations = [
+			"submitter"    => ["hasOne", "submitter_id", "users._id"],
+			"assignee"     => ["hasOne", "assignee_id", "users._id"],
+			"organization" => ["hasOne", "organization_id", "organizations._id"],
+		];
 	}

@@ -9,6 +9,7 @@
 	class ZendeskSearcher {
 		protected $feeder = NULL;
 		protected $reader = "readline";
+		protected $searchEngine = NULL;
 		
 		const SEPARATOR_LENGTH = 46;
 		
@@ -90,11 +91,11 @@
 		}
 		
 		protected function search($type, $field, $value) {
-			$item = [
-				"_id" => $value,
-			];
-			$ret = [$item];
-			return $ret;
+			if ($this->searchEngine === NULL) {
+				$this->searchEngine = new SearchEngine();
+			}
+			
+			return $this->searchEngine->search($type, $field, $value);
 		}
 		
 		protected function getSearchableFields() {

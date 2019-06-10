@@ -8,13 +8,7 @@
 	 * Date: 2019.06.11.
 	 * Time: 1:47
 	 */
-	class ItemLister {
-		protected $languageHandler;
-		
-		function __construct($languageHandler) {
-			$this->languageHandler = $languageHandler;
-		}
-		
+	class ItemLister extends Lister {
 		/**
 		 * Returns the formatted list of the items.
 		 *
@@ -32,8 +26,8 @@
 			
 			$str = "";
 			
-			$separator = str_repeat("-", 50). PHP_EOL;
-			
+			$separator = str_repeat("-", self::SEPARATOR_LENGTH). PHP_EOL;
+
 			foreach ($items as $item) {
 				if ($str !== "") {
 					$str .= $separator;

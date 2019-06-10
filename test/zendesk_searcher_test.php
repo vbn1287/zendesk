@@ -43,14 +43,6 @@
 			$this->expectOutputRegex("/Zendesk/");
 		}
 		
-		public function testGetListSearchableFields() {
-			$paramFeeder = new CliFeeder;
-			$zs = new ZendeskSearcherProxy($paramFeeder);
-			
-			$list = $zs->getListSearchableFields();
-			$this->assertRegexp("/\n_id.*\nexternal_id/s", $list);
-		}
-		
 		public function testRunHelp() {
 			$paramFeeder = new CliFeeder(function() {
 				return ["program.php", "--help"];

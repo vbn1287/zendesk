@@ -14,8 +14,7 @@
 		protected $searchEngine = NULL;
 		protected $languageHandler = NULL;
 		protected $itemLister = NULL;
-		
-		const SEPARATOR_LENGTH = 46;
+		protected $searchableFieldLister = NULL;
 		
 		function __construct(ParamFeeder $paramFeeder) {
 			$this->feeder = $paramFeeder;
@@ -178,21 +177,13 @@
 		 * @return string
 		 */
 		protected function getListSearchableFields():string {
-			$fields = $this->getSearchableFields();
-			
-			$typeDescriptions = [];
-
-			foreach ($fields as $type => $fieldList) {
-				$head = sprintf($this->languageHandler->get("search_with"), ucfirst($type));
-				$body = join(PHP_EOL, $fieldList). PHP_EOL. PHP_EOL;
-				$typeDescriptions[] = $head. $body;
+			if ($this->searchableFieldLister === NULL) {
+				$this->searchableFieldLister = new SearchableFieldLister($this->languageHandler);
 			}
 			
-			$separator = str_repeat("-", self::SEPARATOR_LENGTH). PHP_EOL;
-
-			$ret = join($separator, $typeDescriptions);
-
-			return $ret;
+			$fields = $this->getSearchableFields();
+			
+			return $this->searchableFieldLister->list($fields);
 		}
 		
 		/**

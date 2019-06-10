@@ -143,50 +143,74 @@
 				
 				$relatedItems = $this->getForeignValues($has, $item->getAttrValue($selfField), $foreignTable, $foreignColumn);
 				
-				$this->relatedItems[$relationName] = $relatedItems;
+				$item->addRelatedItems($relationName, $relatedItems);
 			}
 			
 			return $item;
 		}
 		
 		protected function searchUsers($field, $value) {
+			$type  = "users";
+			$items = $this->searchItem($type, $field, $value);
+
 			$relations = User::getRelations();
-			$type = "users";
-			return $this->searchItem($type, $relations, $field, $value);
+			$items = $this->hydrateRelations($items, $relations);
+			return $items;
 		}
 		
 		protected function searchTickets($field, $value) {
+			$type  = "tickets";
+			$items = $this->searchItem($type, $field, $value);
+			
 			$relations = Ticket::getRelations();
-			$type = "tickets";
-			return $this->searchItem($type, $relations, $field, $value);
+			$items = $this->hydrateRelations($items, $relations);
+			return $items;
 		}
 		
 		protected function searchOrganization($field, $value) {
+			$type  = "organizations";
+			$items = $this->searchItem($type, $field, $value);
+			
 			$relations = Organization::getRelations();
-			$type = "organizations";
-			return $this->searchItem($type, $relations, $field, $value);
+			$items = $this->hydrateRelations($items, $relations);
+			return $items;
 		}
 		
 		/**
 		 * Iterates over the data set and collects the items that have their searched value.
 		 *
 		 * @param $type
-		 * @param $relations
 		 * @param $field
 		 * @param $value
 		 * @return array
+		 * @internal param $relations
 		 */
-		protected function searchItem($type, $relations, $field, $value) {
+		protected function searchItem($type, $field, $value) {
 			$ret = [];
 			
 			foreach ($this->data[$type] as $item) {
 				if (self::isEqual($item, $field, $value)) {
-					$item = $this->addRelations($item, $relations);
 					$ret[] = $item;
 				}
 			}
 			
 			return $ret;
+		}
+		
+		/**
+		 * Adds the relations to each of the item in the list.
+		 *
+		 * @param array $items
+		 * @param array $relations
+		 * @return array
+		 */
+		protected function hydrateRelations(array $items, array $relations):array {
+			foreach ($items as $item) {
+				$item = $this->addRelations($item, $relations);
+				$ret[] = $item;
+			}
+			
+			return $items;
 		}
 		
 		/**

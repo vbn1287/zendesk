@@ -100,6 +100,10 @@
 			return $this;
 		}
 		
+		function addRelatedItems($relationName, $items) {
+			$this->relatedItems[$relationName] = $items;
+		}
+		
 		/**
 		 * Returns the string representation of an Item, together with its relations.
 		 *

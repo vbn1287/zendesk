@@ -136,7 +136,12 @@
 			
 			$str = "";
 			
+			$separator = str_repeat("-", 50). PHP_EOL;
+			
 			foreach ($items as $item) {
+				if ($str !== "") {
+					$str .= $separator;
+				}
 				$str .= $item->toString();
 			}
 

@@ -98,11 +98,15 @@
 		}
 		
 		protected function getSearchableFields() {
-			return [
-				"users"         => ["_id", "url", "external_id", "name", "alias"],
-				"tickets"       => ["_id", "url", "external_id", "created_at"],
-				"organizations" => ["_id", "url", "external_id", "details"],
-			];
+			$type = ["User", "Ticket", "Organization"];
+			
+			$ret = [];
+			
+			foreach ($type as $type) {
+				$ret[$type::getPluralName()] = $type::getFieldNames();
+			}
+			
+			return $ret;
 		}
 
 		protected function getListSearchableFields() {
@@ -111,7 +115,7 @@
 			$typeDescriptions = [];
 
 			foreach ($fields as $type => $fieldList) {
-				$head = "Search ". $type. "s with". PHP_EOL;
+				$head = sprintf($this->languageHandler->get("search_with"), ucfirst($type));
 				$body = join(PHP_EOL, $fieldList). PHP_EOL. PHP_EOL;
 				$typeDescriptions[] = $head. $body;
 			}

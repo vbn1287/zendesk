@@ -20,12 +20,13 @@
 	timeoutForSmallTests="1"
 	timeoutForMediumTests="10"
 	timeoutForLargeTests="60"
-	verbose="true" >
+	verbose="false" >
 	<testsuites>
 		<testsuite name="My Test Suite">
 			<!-- directory>/path/to/*Test.php files</directory -->
 			<file>cli_feeder_test.php</file>
 			<file>zendesk_searcher_test.php</file>
+			<file>search_engine_test.php</file>
 		</testsuite>
 	</testsuites>
 
@@ -40,6 +41,14 @@
 			<file>..\classes\controller\cli_feeder.php</file>
 			<file>..\classes\controller\param_feeder.php</file>
 			<file>..\classes\controller\zendesk_searcher.php</file>
+			<file>..\classes\controller\search_engine.php</file>
+			<file>..\classes\model\item.php</file>
+			<file>..\classes\model\organization.php</file>
+			<file>..\classes\model\ticket.php</file>
+			<file>..\classes\model\user.php</file>
+			<file>..\classes\view\language_handler.php</file>
+			<file>..\classes\autoload_handler.php</file>
+			<file>..\classes\exception_handler.php</file>
 		</whitelist>
 	</filter>
 

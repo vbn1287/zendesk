@@ -79,16 +79,6 @@
 			$this->assertEquals(1, 2);
 		}
 		
-		public function testRunSearchFromCommandLine() {
-			$paramFeeder = new CliFeeder(function() {
-				return ["program.php", "users", "_id", 6];
-			});
-			
-			$zs = new ZendeskSearcherProxy($paramFeeder);
-			$zs->run();
-			$this->expectOutputRegex("/6/");
-		}
-		
 		public function testRunQuit() {
 			$paramFeeder = new CliFeeder(function() {
 				return ["program.php"];
@@ -103,20 +93,6 @@
 			$this->assertEquals(1, 1); // we just assert that the code has returned.
 		}
 		
-		public function testRunInteractiveSearch() {
-			$paramFeeder = new CliFeeder(function() {
-				return ["program.php"];
-			});
-			
-			$sf = new SequenceFeeder(["1", "2", "_id", "9", "quit"]);
-			
-			$zs = new ZendeskSearcherProxy($paramFeeder);
-			$zs->setReader([$sf, "getNext"]);
-			
-			$zs->run();
-			$this->expectOutputRegex("/ \[_id\] => 9/");
-		}
-		
 		public function testRunInteractiveListOfFields() {
 			$paramFeeder = new CliFeeder(function() {
 				return ["program.php"];
@@ -129,6 +105,30 @@
 			
 			$zs->run();
 			$this->expectOutputRegex("/\n_id.*\nexternal_id/s");
+		}
+
+		public function testRunSearchFromCommandLine() {
+			$paramFeeder = new CliFeeder(function() {
+				return ["program.php", "users", "_id", 6];
+			});
+			
+			$zs = new ZendeskSearcherProxy($paramFeeder);
+			$zs->run();
+			$this->expectOutputRegex("/6/");
+		}
+		
+		public function testRunInteractiveSearch() {
+			$paramFeeder = new CliFeeder(function() {
+				return ["program.php"];
+			});
+			
+			$sf = new SequenceFeeder(["1", "tickets", "_id", "436bf9b0-1147-4c0a-8439-6f79833bff5b", "quit"]);
+			
+			$zs = new ZendeskSearcherProxy($paramFeeder);
+			$zs->setReader([$sf, "getNext"]);
+			
+			$zs->run();
+			$this->expectOutputRegex("/ \[_id\] => 436bf9b0-1147-4c0a-8439-6f79833bff5b/");
 		}
 	}
 	

@@ -79,6 +79,8 @@
 					return $this->searchOrganization($field, $value);
 				
 			}
+			
+			return [];
 		}
 		
 		protected function getForeignValues($has, $selfValue, $foreignTable, $foreignColumn) {

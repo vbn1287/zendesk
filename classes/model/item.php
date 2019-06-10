@@ -31,6 +31,16 @@
 			return $this->values[$name];
 		}
 		
+		function hasAttr($name) {
+			$class = get_called_class();
+			$arr = $class::$attributes;
+			return array_key_exists($name, $arr);
+		}
+		
+		function getAttrType($name) {
+			return $this->attributes[$name];
+		}
+		
 		function fillFromArray($arr) {
 			$this->values = [];
 			

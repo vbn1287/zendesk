@@ -138,13 +138,51 @@
 			$ret = [];
 			
 			foreach ($this->data[$type] as $item) {
-				if ($item->getAttrValue($field) == $value) {
+				if ($this->isEqual($item, $field, $value)) {
 					$item = $this->addRelations($item, $relations);
 					$ret[] = $item;
 				}
 			}
 			
 			return $ret;
+		}
+		
+		protected function isEqual(Item $item, $field, $value) {
+			if (!$item->hasAttr($field)) {
+				return FALSE;
+			}
+			
+			switch ($item->getAttrValue($field)) {
+				case "integer":
+					return ((string)$item->getAttrValue($field) === $value);
+				
+				case "boolean":
+					if ((strtolower($value) === "true") && ($item->getAttrValue($field) === TRUE)) {
+						return TRUE;
+					}
+					
+					if ((strtolower($value) === "false") && ($item->getAttrValue($field) === FALSE)) {
+						return TRUE;
+					}
+
+					return FALSE;
+
+				case "array":
+					$arr = $item->getAttrValue($field);
+
+					if (is_array($arr)) {
+						foreach ($arr as $el) {
+							if ($el === $value) {
+								return TRUE;
+							}
+						}
+					}
+					
+					return FALSE;
+				
+				default:  // string-like fields, like UUID, email, URL, timestamp, string
+					return ($item->getAttrValue($field) === $value);
+			}
 		}
 		
 	}

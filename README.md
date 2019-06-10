@@ -3,16 +3,16 @@
 ## Usage:
 ### Showing manual:
 
-`php zendesk_search --help`
-`php zendesk_search -h`
+`php zendesk_search.php --help`
+`php zendesk_search.php -h`
 
 ### Interactive mode:
 
-`php zendesk_search`
+`php zendesk_search.php`
 
 ### Searching items from command line:
 
-`php zendesk_search item-type-to-search field-name-to-search field-value-to-search`
+`php zendesk_search.php item-type-to-search field-name-to-search field-value-to-search`
 
 ### Arguments:
 
@@ -31,9 +31,9 @@ For the rest, any string can be given.
 ### Example:
 
 - searching for all the users called "John Doe"
-`php zendesk_search users name "John Doe"`
+`php zendesk_search.php users name "John Doe"`
 - searching for all the tickets having "Ohio" (and potentially other values) in their tags:
-`php zendesk_search tickets tags Ohio`
+`php zendesk_search.php tickets tags Ohio`
 
 ## Requirements:
 

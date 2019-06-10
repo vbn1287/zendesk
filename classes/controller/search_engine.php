@@ -146,7 +146,7 @@
 			$ret = [];
 			
 			foreach ($this->data[$type] as $item) {
-				if ($this->isEqual($item, $field, $value)) {
+				if (self::isEqual($item, $field, $value)) {
 					$item = $this->addRelations($item, $relations);
 					$ret[] = $item;
 				}
@@ -155,7 +155,7 @@
 			return $ret;
 		}
 		
-		protected function isEqual(Item $item, $field, $value) {
+		protected static function isEqual(Item $item, string $field, string $value) {
 			if (!$item->hasAttr($field)) {
 				return FALSE;
 			}

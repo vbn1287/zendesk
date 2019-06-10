@@ -72,7 +72,7 @@
 			$this->assertEquals($items[0]->getAttrValue("_id"), "1a227508-9f39-427c-8f57-1b72f3fab87c");
 		}
 		
-		public function testInvalidItemType() {
+		public function testInvalidItemTypeReturnsEmptyArray() {
 			$searchEngine = new SearchEngineProxy();
 			$searchEngine->setDataDir(__DIR__. "/data/good_jsons/");
 			$items = $searchEngine->search("pink_unicorns", "age", "9999");

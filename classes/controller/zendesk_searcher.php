@@ -54,13 +54,25 @@
 							return;
 						
 						case "1":
-							print $this->languageHandler->get("select_type");
-							$type = ($this->reader)();
+							do {
+								print $this->languageHandler->get("select_type");
+								
+								$type = ($this->reader)();
+							} while (!in_array($type, ["1", "2", "3"]));
 							
-							print $this->languageHandler->get("select_search_term");
-							$field = ($this->reader)();
+							do {
+								print $this->languageHandler->get("select_search_term");
+								
+								$field = ($this->reader)();
+								
+								if ($this->isFieldSelectable($type, $field)) {
+									break;
+								}
+								print $this->languageHandler->get("wrong_search_term");
+							} while(TRUE);
 							
 							print $this->languageHandler->get("select_search_value");
+							
 							$value = ($this->reader)();
 							
 							$items = $this->search($type, $field, $value);
@@ -88,6 +100,16 @@
 				print $this->itemsToString($items, $type, $field, $value);
 				
 			}
+		}
+		
+		protected function isFieldSelectable($typeCode, $fieldName) {
+			$fields = $this->getSearchableFields();
+			
+			$typeName = array_keys($fields)[$typeCode - 1];
+			
+			$searchableFields = $fields[$typeName];
+			
+			return in_array($fieldName, $searchableFields);
 		}
 		
 		protected function search($type, $field, $value) {

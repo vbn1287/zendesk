@@ -2,8 +2,9 @@
 	"welcome": "Welcome to Zendesk Search\n",
 	"type_quit": "Type 'quit' to exit at any time, Press 'Enter' to continue\n\n\n   Select search options:\n    * Press 1 to search Zendesk\n    * Press 2 to view a list of searchable fields\n    * Type 'quit' to exit\n\n",
 	"select_type": "Select 1) Users or 2) Tickets or 3) Organizations\n",
-	"select_search_term": "Enter search term\n",
-	"select_search_value": "Enter search value\n",
+	"select_search_term": "Enter Search Term\n",
+	"wrong_search_term": "This Search Term is invalid\n",
+	"select_search_value": "Enter Search Value\n",
 	"search_with": "Search %s with\n",
 	"no_hits": "Searching %s for %s with a value of %s\nNo results found\n"
 }

@@ -28,6 +28,7 @@
 			<file>zendesk_searcher_test.php</file>
 			<file>search_engine_test.php</file>
 			<file>language_handler_test.php</file>
+			<file>data_handler_test.php</file>
 		</testsuite>
 	</testsuites>
 
@@ -43,6 +44,7 @@
 			<file>..\classes\controller\param_feeder.php</file>
 			<file>..\classes\controller\zendesk_searcher.php</file>
 			<file>..\classes\controller\search_engine.php</file>
+			<file>..\classes\controller\data_handler.php</file>
 			<file>..\classes\exception\data_file_load_error_exception.php</file>
 			<file>..\classes\exception\dictionary_reading_exception.php</file>
 			<file>..\classes\exception\help_not_found_exception.php</file>

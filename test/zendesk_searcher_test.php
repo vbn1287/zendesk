@@ -13,7 +13,7 @@
 			parent::help();
 		}
 		
-		public function getListSearchableFields() {
+		public function getListSearchableFields():string {
 			return parent::getListSearchableFields();
 		}
 	}
